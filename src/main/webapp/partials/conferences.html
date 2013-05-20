@@ -1,0 +1,10 @@
+<input autocomplete ui-items="conferences" ng-model="filterCriteria">
+
+<div class="content panel" infinite-scroll="nextPage()"
+	infiniste-scroll-disabled="busy" infinite-scroll-distance="3">
+	<ul>
+		<li ng-repeat="conference in conferences | filter:filterCriteria">
+			<a ng-tap="showDetail(conference)">{{conference.title}}</a>
+		</li>
+	</ul>
+</div>

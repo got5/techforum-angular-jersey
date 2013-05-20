@@ -1,0 +1,21 @@
+<div>
+	<style type="text/css">
+	<!--
+	.tag {
+	    border-radius: 5px;
+	    border: 1px solid #DDDDDD;
+	    padding: 5px;
+	    margin: 5px;
+	    background-color: #CCCCCC;
+	}
+	-->
+	</style>
+
+	<input type="text" id="inputTag" ng-model="newTag"/> 
+	<input type="button" ng-click="addTag()" value="Add"/>
+
+	<a ng-repeat="tag in tags" class="tag" ng-click="removeTag(tag)">
+		{{tag}}
+		<!-- img href="assets/delete.png" class="deleteTagLink"/ -->
+	</a>
+</div>

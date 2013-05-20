@@ -1,0 +1,6 @@
+<div>
+	<button ng-disabled="isFirstPage()" ng-click="decPage()">&lt;</button>
+	{{paginator.currentPage+1}}/{{numberOfPages()}}
+	<button ng-disabled="isLastPage()" ng-click="incPage()">&gt;</button>
+	<select ng-model="paginator.pageSize" ng-options="size for size in pageSizeList"></select>
+</div>
