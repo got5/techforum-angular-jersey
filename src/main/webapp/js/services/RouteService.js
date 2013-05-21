@@ -4,6 +4,8 @@ var RouteService = Class.extend({
 	
 	rootScope: null,
 	
+	location: null,
+	
 	listenToRouteChanges: function() {
 		this.rootScope.$on('$routeChangeSuccess', this.onRouteChange.bind(this));
 	},
@@ -16,11 +18,10 @@ var RouteService = Class.extend({
 		return this._previousRoute;
 	},
 	
-	getpreviousURL: function() {
+	gotoPreviousPage: function() {
 		if (this._previousRoute != null) {
-			
+			//this.location.path();
 		}
-		return '#';
 	}
 });
 
@@ -40,8 +41,9 @@ var RouteService = Class.extend({
 		 * 
 		 * @return RouteService
 		 */
-		$get : [ '$rootScope', function($rootScope) {
+		$get : [ '$rootScope', '$location', function($rootScope, $location) {
 			this.instance.rootScope = $rootScope;
+			this.instance.location = $location;
 			this.instance.listenToRouteChanges();
 			
 			return this.instance;

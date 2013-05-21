@@ -14,15 +14,15 @@ var HeaderBarController = BaseController.extend({
 		this._super();
 		
 		this.$scope.hasPreviousPage = this.hasPreviousPage.bind(this);
-		this.$scope.getPreviousPage = this.getPreviousPage.bind(this);
+		this.$scope.gotoPreviousPage = this.gotoPreviousPage.bind(this);
 	},
 	
 	hasPreviousPage: function() {
 		return this._routeService.getPreviousRoute() != null;
 	},
 	
-	getPreviousPage: function() {
-		return this._routeService.getpreviousURL();
+	gotoPreviousPage: function() {
+		return this._routeService.gotoPreviousPage();
 	}
 });
 

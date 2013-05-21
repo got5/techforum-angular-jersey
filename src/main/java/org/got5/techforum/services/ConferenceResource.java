@@ -30,6 +30,27 @@ public class ConferenceResource extends BaseResource {
 		};
 		return Response.ok(entity).build();
 	}
+	
+	@GET
+	@Path("/start/{start}/nb/{nb}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getConferences(@PathParam("start") int start, @PathParam("nb") int nb) {
+		if (start < 0 || nb < 1) {
+			return Response.serverError().build();
+		}
+		
+		Query query = getSession().createQuery("FROM Conference");
+		query.setFirstResult(start);
+		query.setMaxResults(nb);
+
+		@SuppressWarnings("unchecked")
+		List<Conference> conferences = query.list();
+		
+		GenericEntity<List<Conference>> entity = new GenericEntity<List<Conference>>(
+				conferences) {
+		};
+		return Response.ok(entity).build();
+	}
 
 	@GET
 	@Path("/id/{id}")

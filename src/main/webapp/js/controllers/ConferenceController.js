@@ -19,7 +19,6 @@ var ConferenceController = BaseController.extend({
 		
 		this.$scope.conferences = [];
 		this.$scope.nextPage = this.nextPage.bind(this);
-		this.$scope.after = '';
 		
 		this.$scope.showDetail = this.showDetail.bind(this);
 	},
@@ -38,8 +37,11 @@ var ConferenceController = BaseController.extend({
 		for (var index = 0; index < pConferences.length; index++) {
 			this.$scope.conferences.push(pConferences[index]);
 		}
-		this.$scope.after = '';
-		this.$scope.busy = false;
+		
+		//No more results returned by the service: no need to call the service again.
+		if (pConferences.length == this._conferenceService.NB_CONFERENCES) {
+			this.$scope.busy = false;
+		}
 	},
 	
 	showDetail: function(pConference) {
