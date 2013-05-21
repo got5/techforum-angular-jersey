@@ -101,7 +101,7 @@ body.landscape > .toolbar > h1 {
   left: 6px;
 }
 
-#backButton {
+.backButton {
   left: 6px;
   padding: 0;
   max-width: 55px;

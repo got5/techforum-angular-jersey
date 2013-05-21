@@ -1,10 +1,13 @@
-<input autocomplete ui-items="conferences" ng-model="filterCriteria">
+<headerbar view-title="{{ '_Conference_List_Title_' | i18n}}"> 
+	<a class="button right" href="#">{{ '_Search_Conference_' | i18n}}</a> 
+</headerbar>
+
+<!-- input autocomplete ui-items="conferences" ng-model="filterCriteria"  | filter:filterCriteria -->
 
 <div class="content panel" infinite-scroll="nextPage()"
-	infiniste-scroll-disabled="busy" infinite-scroll-distance="3">
+	infinite-scroll-disabled="busy" infinite-scroll-distance="3" infinite-scroll-on-element="true">
 	<ul>
-		<li ng-repeat="conference in conferences | filter:filterCriteria">
-			<a ng-tap="showDetail(conference)">{{conference.title}}</a>
-		</li>
+		<li ng-repeat="conference in conferences">
+		<a ng-tap="showDetail(conference)">{{conference.title}}</a></li>
 	</ul>
 </div>

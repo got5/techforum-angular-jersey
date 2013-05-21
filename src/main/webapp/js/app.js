@@ -1,7 +1,10 @@
 'use strict';
 
-//Conferences dependencies
+// Conferences dependencies
 angular.module('techforum.conferences', [ 'conferences.ConferenceService' ]);
+
+// Services dependencies
+angular.module('techforum.services', [ 'services.RouteService' ]);
 
 // Filters module
 angular.module('techforum.filters', []);
@@ -9,7 +12,9 @@ angular.module('techforum.filters', []);
 // Application module
 angular.module(
 		'techforum',
-		[ 'techforum.conferences', 'techforum.directives', 'techforum.filters', 'google-maps', 'infinite-scroll' ]).config(
+		[ 'techforum.conferences', 'techforum.services',
+				'techforum.directives', 'techforum.filters', 'ui',
+				'google-maps', 'localization', 'infinite-scroll' ]).config(
 		[ '$routeProvider', function($routeProvider, $locationProvider) {
 			$routeProvider.when('/conferences', {
 				templateUrl : 'partials/conferences.html',

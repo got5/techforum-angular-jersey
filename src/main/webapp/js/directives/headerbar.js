@@ -2,27 +2,45 @@
  * Application header toolbar controller.
  */
 var HeaderBarController = BaseController.extend({
-
-	init : function($scope) {
+	
+	_routeService: null,
+	
+	init : function($scope, routeService) {
 		this._super($scope);
+		this._routeService = routeService;
 	},
 
 	defineScope : function() {
 		this._super();
 		
-		this.$scope.pageTitle = "test";
+		this.$scope.hasPreviousPage = this.hasPreviousPage.bind(this);
+		this.$scope.getPreviousPage = this.getPreviousPage.bind(this);
+	},
+	
+	hasPreviousPage: function() {
+		return this._routeService.getPreviousRoute() != null;
+	},
+	
+	getPreviousPage: function() {
+		return this._routeService.getpreviousURL();
 	}
 });
 
-directives.directive('headerbar', function() {
-
+/**
+ * Application header toolbar directive.
+ */
+directives.directive('headerbar', ['RouteService', function(routeService) {
 	return {
 		restrict : 'E',
 		templateUrl : 'js/directives/templates/headerbar.html',
 		replace : true,
-		link : function($scope, $elm, $attrs) {
-			new HeaderBarController($scope);
+		transclude : true, //Add directive children.
+		scope: {
+			title: "@viewTitle" //Link $scope.title to view-title attribute.
 		},
-		scope : true
+		link : function($scope, $elm, $attrs) {
+			//Directive controller.
+			new HeaderBarController($scope, routeService);
+		},
 	}
-});
+}]);

@@ -11,4 +11,4 @@ var Conference = Class.extend({
 	likes: 0,
 	room: null,
 	speaker: null
-};
+});
