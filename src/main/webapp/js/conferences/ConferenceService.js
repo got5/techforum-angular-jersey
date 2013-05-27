@@ -6,9 +6,9 @@
 var ConferenceService = Class.extend({
 	
 	/**
-	 * Base REST services URL.
+	 * AngularJS REST service.
 	 */
-	BASE_URL : 'http://localhost:8080/techforum/rest/conferences',
+	restangular: null,
 	
 	/**
 	 * Number of conferences returned by the service.
@@ -21,40 +21,99 @@ var ConferenceService = Class.extend({
 	_startIndex: 0,
 	
 	/**
-	 * Returns all conferences.
+	 * Defines start search index.
+	 * 
+	 * @param {int}
+	 */
+	setStartIndex: function(pIndex) {
+		this._startIndex = pIndex;
+	},
+	
+	/** Search criteria @returns {Conference} */
+	_searchCriteria: null,
+	
+	setSearchCriteria :function(pCriteria) {
+		this._searchCriteria = pCriteria;
+	},
+	
+	/**
+	 * Returns search criteria.
+	 * 
+	 * @returns {Conference}
+	 */
+	getSearchCriteria: function() {
+		return this._searchCriteria;
+	},
+	
+	/** Currently displayed conference @returns {Conference} */ 
+	_selectedConference: null,
+	
+	/** Defines selected conference. @param {Conference} */
+	setSelectedConference: function(pConference) {
+		this._selectedConference = pConference;
+	},
+	
+	/** Returns current conference @returns {Conference} */
+	getSelectedConference: function() {
+		return this._selectedConference;
+	},
+	
+	/**
+	 * Returns conferences.
 	 * 
 	 * @returns {Array}
 	 */
 	getConferences : function() {
-		return this.$http.get(this.BASE_URL + "/start/" + this._startIndex + "/nb/" + this.NB_CONFERENCES).success(
-				this.onSuccess).error(this.onError).then(this._getConferences.bind(this));
+		var queryParam = { start: this._startIndex, nb: this.NB_CONFERENCES };
+		
+		if (this._searchCriteria) {
+			if (this._searchCriteria.title != null) {
+				queryParam.title = this._searchCriteria.title;
+			}
+			if (this._searchCriteria.category != null) {
+				queryParam.category = this._searchCriteria.category;
+			}
+			if (this._searchCriteria.room != null) {
+				queryParam.room = this._searchCriteria.room;
+			}
+			if (this._searchCriteria.day != null) {
+				queryParam.day = this._searchCriteria.day;
+			}
+		}
+		
+		return this.restangular.all("conferences").getList(queryParam).then(this._getConferences.bind(this), this.onError);
 	},
-
+	
+	/**
+	 * Handler on search service success.
+	 */
 	_getConferences : function(pResult) {
 		this._startIndex += this.NB_CONFERENCES;
-		
-		if (pResult != null && pResult.data != null) {
-			return pResult.data.conference;
+		return pResult;
+	},
+	
+	/**
+	 * Deletes the selected conference.
+	 * 
+	 * @param {Conference}
+	 */
+	deleteConference: function(pConference) {
+		if (pConference != null) {
+			return pConference.remove();
 		}
 		return null;
 	},
 	
 	/**
-	 * Returns conference with id equals to pId.
+	 * Updates the selected conference.
 	 * 
-	 * @returns {Conference}
+	 * @param {Conference}
 	 */
-	getConference : function(pId) {
-		return this.$http.get(this.BASE_URL + "/id/" + pId).success(
-				this.onSuccess).error(this.onError).then(this._getConference);
-	},
-	
-	_getConference: function(pResult) {
-		return pResult.data;
-	},
-	
-	onSuccess : function(response) {
-		console.log("[DEBUG] Success call to ConferenceService.");
+	updateConference: function(pConference) {
+		if (pConference != null) {
+			return pConference.post("update");
+		}
+		return null;
 	},
 
 	onError : function(response) {
@@ -78,14 +137,13 @@ var ConferenceService = Class.extend({
 		 * 
 		 * @return ConferenceService
 		 */
-		$get : [ '$http', function($http) {
-			this.instance.$http = $http;
+		$get : [ 'Restangular', function(restangular) {
+			this.instance.restangular = restangular;
 
 			return this.instance;
 		} ]
 	})
 
 	/** Service registration */
-	angular.module('conferences.ConferenceService', []).provider(
-			'ConferenceService', ConferenceServiceProvider);
+	angular.module('conferences.ConferenceService', []).provider('ConferenceService', ConferenceServiceProvider);
 }());

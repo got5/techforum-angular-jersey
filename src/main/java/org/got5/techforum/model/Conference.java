@@ -43,12 +43,14 @@ public class Conference {
 	
 	public String speaker;
 	
+	public boolean allowFeedbacks;
+	
 	public Conference() {
 		
 	}
 	
 	public Conference(int id, String beginTime, String endingTime, Category category, Day day, String description, 
-			long likes, Room room, String speaker, String title) {
+			long likes, Room room, String speaker, String title, boolean alloFeedbacks) {
 		this.id = id;
 		this.beginTime = beginTime;
 		this.endingTime = endingTime;
@@ -59,5 +61,6 @@ public class Conference {
 		this.room = room;
 		this.speaker = speaker;
 		this.title = title;
+		this.allowFeedbacks = alloFeedbacks;
 	}
 }

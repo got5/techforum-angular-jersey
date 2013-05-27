@@ -24,3 +24,17 @@ directives.directive('ngTap', function() {
 		}
 	}
 });
+
+/**
+ * Used to prevent default behavior on a A link.
+ */
+directives.directive('ngPreventDefault', function() {
+    return {
+        restrict: 'A',
+        link: function($scope, $elm, $attrs) {
+            $elm.onclick = function(event) {
+                event.preventDefault();
+            };
+        }
+    }
+});

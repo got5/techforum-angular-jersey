@@ -1,0 +1,25 @@
+<headerbar view-title="{{'_Conference_Search_'|i18n}}">
+</headerbar>
+
+<div class="panel">
+	<fieldset>
+		<div class="row">
+			<label>{{'_Title_'|i18n}}</label> 
+			<input type="text" ng-model="searchCriteria.title">
+		</div>
+		<div class="row">
+			<label>{{'_Category_'|i18n}}</label> 
+			<input type="text" ng-model="searchCriteria.category">
+		</div>
+		<div class="row">
+			<label>{{'_Room_'|i18n}}</label> 
+			<input type="text" ng-model="searchCriteria.room">
+		</div>
+		<div class="row">
+			<label>{{'_Day_'|i18n}}</label> 
+			<input type="text" ng-model="searchCriteria.day">
+		</div>
+	</fieldset>
+	<a class="whiteButton" ng-click="searchConferences($event)" href="#">{{'_Search_Conference_'|i18n}}</a>
+	<a class="redButton" ng-click="resetCriteria($event)" href="#">{{'_Reset_Criteria_'|i18n}}</a>
+</div>

@@ -1,26 +1,46 @@
+/**
+ * Service used to manage user navigation history.
+ */
 var RouteService = Class.extend({
 	
 	_previousRoute: null,
 	
 	rootScope: null,
 	
-	location: null,
+	window: null,
 	
 	listenToRouteChanges: function() {
 		this.rootScope.$on('$routeChangeSuccess', this.onRouteChange.bind(this));
 	},
 	
+	/**
+	 * Handler on route change.
+	 */
 	onRouteChange: function(currentRoute, previousRoute) {
 		this._previousRoute = previousRoute;
 	},
 	
+	/**
+	 * Returns previous displayed route.
+	 */
 	getPreviousRoute: function() {
 		return this._previousRoute;
 	},
 	
+	/**
+	 * Resets previous route.
+	 */
+	resetPreviousRoute: function() {
+		this._previousRoute = null;
+	},
+	
+	/**
+	 * Returns to previous page.
+	 */
 	gotoPreviousPage: function() {
 		if (this._previousRoute != null) {
-			//this.location.path();
+			//TODO: build URL from previousRoute? And location.path?
+			this.window.history.back();
 		}
 	}
 });
@@ -41,9 +61,9 @@ var RouteService = Class.extend({
 		 * 
 		 * @return RouteService
 		 */
-		$get : [ '$rootScope', '$location', function($rootScope, $location) {
+		$get : [ '$rootScope', '$window', function($rootScope, $window) {
 			this.instance.rootScope = $rootScope;
-			this.instance.location = $location;
+			this.instance.window = $window;
 			this.instance.listenToRouteChanges();
 			
 			return this.instance;

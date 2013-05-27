@@ -27,7 +27,7 @@ li > a[selected="progress"] {
     -moz-border-image: url(blueButton.png) 0 5 0 5;
 }
 
-.backButton {
+#backButton {
     -webkit-border-image: url(backButtonBrdr.png) 0 8 0 14;
     -moz-border-image: url(backButtonBrdr.png) 0 8 0 14;
     background: url(backButtonBack.png) repeat-x;

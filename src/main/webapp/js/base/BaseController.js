@@ -6,9 +6,8 @@ var BaseController = Class.extend({
 
     $scope: null,
 
-
     /**
-     * Initialize Notes Controller
+     * Initialize Controller
      * @param scope, current controller scope
      */
     init: function (scope) {
@@ -17,7 +16,6 @@ var BaseController = Class.extend({
         this.defineScope();
     },
 
-
     /**
      * Initialize listeners needs to be overrided by the subclass.
      * Don't forget to call _super() to activate
@@ -25,7 +23,6 @@ var BaseController = Class.extend({
     defineListeners: function () {
         this.$scope.$on('$destroy', this.destroy.bind(this));
     },
-
 
     /**
      * Use this function to define all scope objects.
@@ -36,7 +33,6 @@ var BaseController = Class.extend({
         //OVERRIDE
     },
 
-
     /**
      * Triggered when controller is about
      * to be destroyed, clear all remaining values.
@@ -46,5 +42,5 @@ var BaseController = Class.extend({
     }
 });
 
-
+//String injection (to not have problems if minified).
 BaseController.$inject = ['$scope'];

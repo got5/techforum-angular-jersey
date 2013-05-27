@@ -1,18 +1,49 @@
-<headerbar view-title="{{currentConference.title}}">
-</headerbar>
+<headerbar view-title="{{currentConference.title}}"> <a
+	class="button right" href="#" ng-click="deleteConference($event)"> {{
+	'_Delete_Conference_' | i18n}} </a> </headerbar>
 
 <div class="panel">
 	<fieldset>
 		<div class="row">
-			<label>Title</label> 
-			<input type="text" ng-model="currentConference.title">
+			<label>{{'_Title_'|i18n}}</label> <input type="text"
+				ng-model="currentConference.title" required>
 		</div>
 		<div class="row">
-			<label>Description</label> 
-			<input type="text" ng-model="currentConference.description">
+			<label>{{'_Description_'|i18n}}</label> <input type="text"
+				ng-model="currentConference.description" required>
 		</div>
 		<div class="row">
-			<label>Salle</label>
+			<label>{{'_Room_'|i18n}}</label> <select id="selectRoom"
+				name="selectRoom" size="1">
+				<option ng-repeat="room in rooms" value="{{room}}">{{room}}</option>
+			</select>
+		</div>
+		<div class="row">
+			<label>{{'_Category_'|i18n}}</label> <select id="selectCategory"
+				name="selectCategory" size="1">
+				<option ng-repeat="category in categories" value="{{category}}">{{category}}</option>
+			</select>
+		</div>
+		<div class="row">
+			<label>{{'_Speaker_'|i18n}}</label> <input type="text"
+				ng-model="currentConference.speaker" required>
+		</div>
+		<div class="row">
+			<label>{{'_Allow_Feedbacks_'|i18n}}</label>
+			<div class="toggle" onclick="">
+				<span class="thumb"></span>
+				<span class="toggleOn">ON</span>
+				<span class="toggleOff">OFF</span>
+			</div>
+		</div>
+		<div class="row">
+			<label>{{'_Day_'|i18n}}</label> 
+				<span ng-repeat="day in days" class="select">
+					<label for="day_{{day}}" class="select">{{day}}</label>
+					<input id="day_{{day}}" type="radio" name="radio_Day" value="{{day}}"/>
+				</span>
 		</div>
 	</fieldset>
+	<a ng-class="{ whiteButton : true, disable : false }"
+		ng-click="postConference($event)" href="#">{{'_Save_Conference_'|i18n}}</a>
 </div>

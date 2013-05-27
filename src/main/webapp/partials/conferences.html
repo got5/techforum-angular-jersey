@@ -1,5 +1,5 @@
 <headerbar view-title="{{ '_Conference_List_Title_' | i18n}}"> 
-	<a class="button right" href="#">{{ '_Search_Conference_' | i18n}}</a> 
+	<a class="button right" href="#/search">{{ '_Search_Conference_' | i18n}}</a> 
 </headerbar>
 
 <!-- input autocomplete ui-items="conferences" ng-model="filterCriteria"  | filter:filterCriteria -->
@@ -8,6 +8,7 @@
 	infinite-scroll-disabled="busy" infinite-scroll-distance="3" infinite-scroll-on-element="true">
 	<ul>
 		<li ng-repeat="conference in conferences">
-		<a ng-tap="showDetail(conference)">{{conference.title}}</a></li>
+			<a ng-tap="showDetail(conference)">{{conference.title}}</a>
+		</li>
 	</ul>
 </div>

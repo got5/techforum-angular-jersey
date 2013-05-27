@@ -21,8 +21,14 @@ var HeaderBarController = BaseController.extend({
 		return this._routeService.getPreviousRoute() != null;
 	},
 	
-	gotoPreviousPage: function() {
-		return this._routeService.gotoPreviousPage();
+	/**
+	 * Returns to previous page, if any.
+	 */
+	gotoPreviousPage: function($event) {
+		//Prevent default link redirection.
+		$event.preventDefault();
+		
+		this._routeService.gotoPreviousPage();
 	}
 });
 

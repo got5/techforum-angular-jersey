@@ -1,4 +1,4 @@
 <div class="toolbar" ng-transclude>
 	<h1 id="pageTitle">{{title}}</h1>
-	<a ui-if="hasPreviousPage()" class="button backButton" ng-click="{{gotoPreviousPage()}}">{{'_Back_Link_'|i18n}}</a>
+	<a ui-if="hasPreviousPage()" href="#" class="button backButton" ng-click="gotoPreviousPage($event)">{{'_Back_Link_'|i18n}}</a>
 </div>

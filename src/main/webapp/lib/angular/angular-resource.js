@@ -387,10 +387,14 @@ angular.module('ngResource', ['ng']).
             url: route.url(extend({}, extractParams(data, action.params || {}), params)),
             data: data
           }).then(function(response) {
-              var data = response.data;
+              var data = response.data != "null" ? response.data : null;
 
               if (data) {
                 if (action.isArray) {
+                  //Wrapped array case.
+                  if (data instanceof Object && !(data instanceof Array)) {
+                	  data = data[Object.keys(data)[0]];
+                  }
                   value.length = 0;
                   forEach(data, function(item) {
                     value.push(new Resource(item));

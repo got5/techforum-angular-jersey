@@ -1,5 +1,6 @@
 /**
- * Application controller.
+ * Application controller. Can be used to store global variables or to handle
+ * common treatments.
  */
 var AppController = BaseController.extend({
 	

@@ -1,3 +1,4 @@
+/** Conference class. */
 var Conference = Class.extend({
 	
 	id: null,
@@ -10,5 +11,6 @@ var Conference = Class.extend({
 	description: null,
 	likes: 0,
 	room: null,
-	speaker: null
+	speaker: null,
+	allowFeedbacks: null
 });
